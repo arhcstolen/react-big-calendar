@@ -47,6 +47,7 @@ export default class TimeColumn extends Component {
     const timeslots = []
     const groupLengthInMinutes = this.props.step * this.props.timeslots
 
+    let actualDate = this.props.date;
     let date = this.props.min
     let next = date
     let isNow = false
@@ -68,7 +69,7 @@ export default class TimeColumn extends Component {
 
     return (
       <div
-        className={cn(this.props.className, 'rbc-time-column', { 'disabled': disabledDates.indexOf(formatDate(date)) !== -1 })}
+        className={cn(this.props.className, 'rbc-time-column', { 'disabled': disabledDates.indexOf(formatDate(actualDate)) !== -1 })}
         style={this.props.style}
       >
         {timeslots}
