@@ -1,5 +1,6 @@
 react-big-calendar
 ========================
+*This package adds support for passing disabled dates as props, preventing their selection. I published it because I need it for a work contract. I'll send a PR to the original project soon so they can consider to add it for their next release.*
 
 An events calendar component built for React and made for modern browsers (read: IE10+) and uses flexbox over the classic tables-ception approach.
 
