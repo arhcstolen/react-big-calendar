@@ -202,16 +202,20 @@ let DaySlot = React.createClass({
     let selector = this._selector = new Selection(()=> findDOMNode(this))
 
     let maybeSelect = (box) => {
+      let disabledDates = this.props.disabledDates;
       let onSelecting = this.props.onSelecting
       let current = this.state || {};
       let state = selectionState(box);
       let { startDate: start, endDate: end } = state;
 
+      let formatDate = (date) => date.toISOString().slice(0,10).replace(/-/g, '-');
+
       if (onSelecting) {
         if (
           (dates.eq(current.startDate, start, 'minutes') &&
           dates.eq(current.endDate, end, 'minutes')) ||
-          onSelecting({ start, end }) === false
+          onSelecting({ start, end }) === false || 
+          (disabledDates.length && disabledDates.indexOf(formatDate(start)) !== -1)
         )
           return
       }
@@ -279,6 +283,8 @@ let DaySlot = React.createClass({
   },
 
   _selectSlot({ startDate, endDate }) {
+    let { disabledDates } = this.props;
+    let formatDate = (date) => date.toISOString().slice(0,10).replace(/-/g, '-');
     let current = startDate
       , slots = [];
 
@@ -287,11 +293,14 @@ let DaySlot = React.createClass({
       current = dates.add(current, this.props.step, 'minutes')
     }
 
-    notify(this.props.onSelectSlot, {
-      slots,
-      start: startDate,
-      end: endDate
-    })
+    if (disabledDates.indexOf(formatDate(startDate)) === -1) {
+      notify(this.props.onSelectSlot, {
+        slots,
+        start: startDate,
+        end: endDate
+      })
+    }
+
   },
 
   _select(event){

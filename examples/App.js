@@ -31,6 +31,7 @@ const Example = React.createClass({
       popup: require('./demos/popup'),
       rendering: require('./demos/rendering'),
       customView: require('./demos/customView'),
+      disabledDates: require('./demos/disabledDates')
     }[selected];
 
     return (
@@ -72,6 +73,9 @@ const Example = React.createClass({
               <li className={cn({active: selected === 'rendering' })}>
                 <a href='#' onClick={this.select.bind(null, 'rendering')}>Custom rendering</a>
               </li>
+              <li className={cn({active: selected === 'disabledDates' })}>
+                <a href='#' onClick={this.select.bind(null, 'disabledDates')}>Disabled dates</a>
+              </li>
               {/* temporary hide link to documentation
               <li className={cn({active: selected === 'customView' })}>
                 <a href='#' onClick={this.select.bind(null, 'customView')}>Custom View</a>
@@ -85,7 +89,7 @@ const Example = React.createClass({
                 <strong><i className='fa fa-code'/>{' View example source code'}</strong>
               </a>
             </div>
-            <Current className='demo' />
+            <Current/>
           </div>
         </div>
         <div className='docs'>

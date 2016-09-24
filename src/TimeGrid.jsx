@@ -25,6 +25,8 @@ import {
 
 const MIN_ROWS = 2;
 
+let formatDate = (date) => date.toISOString().slice(0,10).replace(/-/g, '-');
+
 
 export default class TimeGrid extends Component {
 
@@ -263,12 +265,12 @@ export default class TimeGrid extends Component {
   }
 
   renderHeaderCells(range){
-    let { dayFormat, culture } = this.props;
+    let { dayFormat, culture, disabledDates } = this.props;
 
     return range.map((date, i) =>
       <div
         key={i}
-        className='rbc-header'
+        className={cn('rbc-header', { 'disabled': disabledDates.indexOf(formatDate(date)) !== -1 })}
         style={segStyle(1, this._slots)}
       >
         <a href='#' onClick={this._headerClick.bind(null, date)}>

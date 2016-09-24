@@ -58,6 +58,15 @@
   .rbc-time-slot {
     border-top: 1px solid lighten(@cell-border, 10%);
   }
+
+  &.disabled {
+    cursor: not-allowed;
+    background: #f2d3d3;
+
+    .rbc-time-slot {
+      border:0
+    }
+  }
 }
 
 .rbc-time-slot {

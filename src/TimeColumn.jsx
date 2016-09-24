@@ -5,6 +5,8 @@ import dates from './utils/dates';
 
 import TimeSlotGroup from './TimeSlotGroup'
 
+let formatDate = (date) => date.toISOString().slice(0,10).replace(/-/g, '-')
+
 export default class TimeColumn extends Component {
   static propTypes = {
     step: PropTypes.number.isRequired,
@@ -48,6 +50,7 @@ export default class TimeColumn extends Component {
     let date = this.props.min
     let next = date
     let isNow = false
+    let disabledDates = this.props.disabledDates;
 
     for (var i = 0; i < numGroups; i++) {
       isNow = dates.inRange(
@@ -65,7 +68,7 @@ export default class TimeColumn extends Component {
 
     return (
       <div
-        className={cn(this.props.className, 'rbc-time-column')}
+        className={cn(this.props.className, 'rbc-time-column', { 'disabled': disabledDates.indexOf(formatDate(date)) !== -1 })}
         style={this.props.style}
       >
         {timeslots}

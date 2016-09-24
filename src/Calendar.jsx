@@ -325,7 +325,9 @@ let Calendar = React.createClass({
       day: PropTypes.node,
       agenda: PropTypes.node,
       showMore: PropTypes.func
-    })
+    }),
+
+    disabledDates: PropTypes.arrayOf(PropTypes.string)
   },
 
   getDefaultProps() {
@@ -337,7 +339,7 @@ let Calendar = React.createClass({
       views: [views.MONTH, views.WEEK, views.DAY, views.AGENDA],
       date: now,
       step: 30,
-
+      disabledDates: ['2016-09-23'],
       titleAccessor: 'title',
       allDayAccessor: 'allDay',
       startAccessor: 'start',
@@ -380,6 +382,7 @@ let Calendar = React.createClass({
       , style
       , className
       , elementProps
+      , disabledDates
       , date: current
       , ...props } = this.props;
 
@@ -422,6 +425,7 @@ let Calendar = React.createClass({
           formats={undefined}
           events={events}
           date={current}
+          disabledDates={disabledDates}
           components={viewComponents}
           onNavigate={this._navigate}
           onHeaderClick={this._headerClick}
