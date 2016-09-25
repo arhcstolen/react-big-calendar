@@ -203,6 +203,7 @@ let DaySlot = React.createClass({
 
     let maybeSelect = (box) => {
       let disabledDates = this.props.disabledDates;
+      let disabledDays = this.props.disabledDays;
       let onSelecting = this.props.onSelecting
       let current = this.state || {};
       let state = selectionState(box);
@@ -215,7 +216,8 @@ let DaySlot = React.createClass({
           (dates.eq(current.startDate, start, 'minutes') &&
           dates.eq(current.endDate, end, 'minutes')) ||
           onSelecting({ start, end }) === false || 
-          (disabledDates.length && disabledDates.indexOf(formatDate(start)) !== -1)
+          (disabledDates.length && disabledDates.indexOf(formatDate(start)) !== -1) ||
+          (disabledDays.indexOf(start.getDay()) !== -1)
         )
           return
       }
@@ -283,17 +285,20 @@ let DaySlot = React.createClass({
   },
 
   _selectSlot({ startDate, endDate }) {
-    let { disabledDates } = this.props;
+    let { disabledDates, disabledDays } = this.props;
     let formatDate = (date) => date.toISOString().slice(0,10).replace(/-/g, '-');
     let current = startDate
       , slots = [];
+    let now = Date.now();
+    let contains = (arr, elem) => arr.indexOf(elem) !== -1;
 
     while (dates.lte(current, endDate)) {
       slots.push(current)
       current = dates.add(current, this.props.step, 'minutes')
     }
 
-    if (disabledDates.indexOf(formatDate(startDate)) === -1) {
+    // if (disabledDates.indexOf(formatDate(startDate)) === -1 || disabledDays.indexOf(startDate.getDay()) === -1) {
+    if (!contains(disabledDates, formatDate(startDate)) && !contains(disabledDays, startDate.getDay()) && startDate.getTime() > now) {
       notify(this.props.onSelectSlot, {
         slots,
         start: startDate,

@@ -16,6 +16,7 @@ let DisabledDates = React.createClass({
             '2016-09-22',
             '2016-09-23'
           ]}
+          disabledDays={[0, 6]}
           defaultDate={ new Date() }
           onSelecting={ ({start, end}) => 1 }
           onSelectEvent={ event => alert(event.title) }

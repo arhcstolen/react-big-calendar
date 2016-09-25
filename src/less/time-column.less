@@ -17,11 +17,25 @@
   min-height: 40px;
   display: flex;
   flex-flow: column nowrap;
+
+  &.disabled {
+    cursor: not-allowed;
+    background: #f2d3d3;
+    .rbc-time-slot {
+      border: 0;
+    }
+  }
 }
 
 .rbc-time-gutter,
 .rbc-header-gutter {
   flex: none;
+}
+
+.rbc-time-gutter {
+  .rbc-timeslot-group {
+    background: #fff!important;
+  }
 }
 
 .rbc-label {

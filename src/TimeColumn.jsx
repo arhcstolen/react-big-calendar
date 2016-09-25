@@ -52,6 +52,7 @@ export default class TimeColumn extends Component {
     let next = date
     let isNow = false
     let disabledDates = this.props.disabledDates;
+    let disabledDays = this.props.disabledDays;
 
     for (var i = 0; i < numGroups; i++) {
       isNow = dates.inRange(
@@ -69,7 +70,7 @@ export default class TimeColumn extends Component {
 
     return (
       <div
-        className={cn(this.props.className, 'rbc-time-column', { 'disabled': disabledDates.indexOf(formatDate(actualDate)) !== -1 })}
+        className={cn(this.props.className, 'rbc-time-column', { 'disabled': (disabledDates.indexOf(formatDate(actualDate)) !== -1 || disabledDays.indexOf(actualDate.getDay()) !== -1) })}
         style={this.props.style}
       >
         {timeslots}

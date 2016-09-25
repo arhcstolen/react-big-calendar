@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import TimeSlot from './TimeSlot'
 import date from './utils/dates.js'
+import cn from 'classnames'
 import localizer from './localizer'
 
 export default class TimeSlotGroup extends Component {
@@ -42,8 +43,9 @@ export default class TimeSlotGroup extends Component {
     return ret
   }
   render() {
+    let rightNow = Date.now();
     return (
-      <div className="rbc-timeslot-group">
+      <div className={cn('rbc-timeslot-group', { 'disabled': this.props.value.getTime() < rightNow})}>
         {this.renderSlices()}
       </div>
     )
